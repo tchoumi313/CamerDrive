@@ -1,0 +1,5 @@
+.vscode/**
+.expo/**
+.idea/**
+frontend/generated/**
+node_modules
