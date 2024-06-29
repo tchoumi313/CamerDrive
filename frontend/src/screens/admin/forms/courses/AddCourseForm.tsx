@@ -1,8 +1,9 @@
 import Header from "@/components/Header";
-import SelectImage from "@/components/SelectImage";
+import Uploadimage from "@/components/UploadImage";
 import { useAuth } from "@/context/AuthContext";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
+import * as ImagePicker from "expo-image-picker";
 import React, { useState } from "react";
 import {
   ActivityIndicator,
@@ -17,8 +18,6 @@ import {
 } from "react-native";
 import { CoursRequest } from "../../../../../generated/index";
 import environment from "../../../../environments/environment";
-import Uploadimage from "@/components/UploadImage";
-import * as ImagePicker from "expo-image-picker";
 
 const AddCourseForm = () => {
   const authState = useAuth();
@@ -35,7 +34,7 @@ const AddCourseForm = () => {
   const navigation = useNavigation();
 
   const handlePress = () => {
-    navigation.goBack(); // Revenir à la page précédente
+    navigation.goBack(); 
   };
 
   const handlePick = async (image: ImagePicker.ImagePickerResult) => {
@@ -101,7 +100,7 @@ const AddCourseForm = () => {
       }
     ).then((response) => {
       if (response.status === 201) {
-        setMessage("Cours ajoute avec succes !!!");
+        setMessage("Cours ajouter avec succes !!!");
         setMessageType("success");
         setTitleError("");
         setDescriptionError("");

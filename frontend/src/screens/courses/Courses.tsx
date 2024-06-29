@@ -32,18 +32,21 @@ const Courses: React.FC = () => {
 
   const AllCourses = async () => {
     try {
+      console.log("my courses");
       const courseApi = new CoursControllerApi(
+        
         environment,
         environment.basePath,
         axiosInstance
       );
       const response = await courseApi.indexCours();
+      console.log(response);
       const courses = response.data.map((course: any) => ({
         id: course.id,
         courseName: course.titre,
-        imageId: course.image.id,
+        imageId: course.image? course.image.id :"",
       }));
-
+      console.log("my courses");
       console.log(courses);
 
       const coursesWithImages = courses.map((course) => ({
