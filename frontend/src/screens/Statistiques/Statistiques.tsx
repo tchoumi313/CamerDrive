@@ -1,13 +1,7 @@
 import Header from "@/components/Header";
-import axiosInstance from "@/environments/axiosInstance";
-import environment from "@/environments/environment";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, ScrollView, Text, View } from "react-native";
-import {
-  QuizControllerApi,
-  ScoreUserQuizControllerApi,
-} from "../../../generated/index";
 import StatistiqueStyle from "./StatistiqueStyle";
 
 interface ScoreDetail {
@@ -15,6 +9,7 @@ interface ScoreDetail {
   note: number;
   quiz: Quiz;
   status: string;
+  duration: number;
 }
 
 interface Quiz {
@@ -33,38 +28,54 @@ const Statistiques: React.FC = () => {
 
   useEffect(() => {
     const fetchAllScores = async () => {
-      const scoreQuizApi = new ScoreUserQuizControllerApi(
-        environment,
-        environment.basePath,
-        axiosInstance
-      );
-      try {
-        const scoresResponse = await scoreQuizApi.indexScoreUserQuiz();
-        const scores = scoresResponse.data;
-        const detailedScores = await Promise.all(
-          scores.map(async (score: any) => {
-            const quizResponse = await new QuizControllerApi(
-              environment,
-              environment.basePath,
-              axiosInstance
-            ).showQuiz(score.quiz.id);
-            const quiz = quizResponse.data;
-            const status =
-              score.note >= quiz.questions!.length / 2 ? "PASSED" : "FAILED";
-            return {
-              ...score,
-              quiz,
-              status,
-              quizQuestionsTotal: quiz.questions!.length,
-            };
-          })
-        );
-        setTestDetails(detailedScores);
-      } catch (error) {
-        console.error("Error fetching details:", error);
-      } finally {
-        setLoading(false);
-      }
+      // Mock data
+      const mockData: ScoreDetail[] = [
+        {
+          id: 1,
+          note: 8,
+          quiz: {
+            id: 101,
+            questions: [
+              { questionText: "Question 1" },
+              { questionText: "Question 2" },
+              { questionText: "Question 3" },
+              { questionText: "Question 4" },
+              { questionText: "Question 5" },
+              { questionText: "Question 6" },
+              { questionText: "Question 7" },
+              { questionText: "Question 8" },
+              { questionText: "Question 9" },
+              { questionText: "Question 10" },
+            ],
+          },
+          status: "PASSED",
+          duration: 3,
+        },
+        {
+          id: 2,
+          note: 5,
+          quiz: {
+            id: 102,
+            questions: [
+              { questionText: "Question 1" },
+              { questionText: "Question 2" },
+              { questionText: "Question 3" },
+              { questionText: "Question 4" },
+              { questionText: "Question 5" },
+              { questionText: "Question 6" },
+              { questionText: "Question 7" },
+              { questionText: "Question 8" },
+              { questionText: "Question 9" },
+              { questionText: "Question 10" },
+            ],
+          },
+          status: "FAILED",
+          duration: 4,
+        },
+      ];
+
+      setTestDetails(mockData);
+      setLoading(false);
     };
 
     fetchAllScores();
@@ -122,7 +133,7 @@ const Statistiques: React.FC = () => {
               </View>
               <View style={StatistiqueStyle.testItemContainer}>
                 <Text style={StatistiqueStyle.text}>Durée Totale:</Text>
-                <Text style={StatistiqueStyle.text}> min</Text>
+                <Text style={StatistiqueStyle.text}>{test.duration} min</Text>
               </View>
             </View>
           ))}

@@ -38,7 +38,7 @@ const CourseDetailsPage: React.FC<CourseDetailsProps> = (props) => {
           if (response.data) {
             setCourseDetails(response.data);
             if (response.data.image) {
-              // console.log("Course Image: ", response.data.image);
+              console.log("Course Image: ", response.data.image);
               setImageUri("/files/" + response.data.image.id);
             }
           }

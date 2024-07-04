@@ -14,6 +14,7 @@ import {
 import { QuizControllerApi } from "../../../generated/index";
 import axiosInstance from "../../environments/axiosInstance";
 import environment from "../../environments/environment";
+import { saveExamResult } from "../../services/database"; // Import the saveExamResult function
 
 interface Quiz {
   id: number;
@@ -55,6 +56,10 @@ const Quizzes = () => {
 
   const handleQuizPress = (id: number) => {
     navigation.navigate("QuizDetails", { id });
+  };
+
+  const handleQuizCompletion = (quizId: number, score: number, status: string) => {
+    saveExamResult(quizId, score, status); // Save the result to the local database
   };
 
   if (loading) {

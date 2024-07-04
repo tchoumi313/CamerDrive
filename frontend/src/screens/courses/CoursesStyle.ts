@@ -11,7 +11,7 @@ const CoursesStyle = StyleSheet.create({
     marginBottom: 15,
     marginLeft: 20,
     marginRight: 20,
-    marginTop: StatusBar.currentHeight! - 10,
+    marginTop: StatusBar.currentHeight! - 30,
     borderRadius: 20,
   },
   image: {
@@ -22,14 +22,14 @@ const CoursesStyle = StyleSheet.create({
   itemContainer: {
     flexDirection: "row",
     alignItems: "center",
-    padding: 15,
+    padding: 5,
     overflow: "hidden",
     //marginRight: 10,
     //marginTop: 5,
   },
   courseImage: {
-    width: 110,
-    height: 80,
+    width: 150,
+    height: 100,
     borderRadius: 10,
     marginRight: 10,
   },

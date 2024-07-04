@@ -9,7 +9,7 @@ const CorrigeLastExam = () => {
 
   return (
     <Pressable
-      onPress={toggleColorScheme}
+      onPress={() => {}}
       style={{ height: Dimensions.get("window").height * 0.8 }}
       className="z-50 flex-1 items-center justify-center dark:bg-slate-800"
     >
@@ -17,7 +17,7 @@ const CorrigeLastExam = () => {
         selectable={false}
         className="dark:text-white border-[1px] border-green-800"
       >
-        {`Try clicking me! ${colorScheme === "dark" ? "🌙" : "🌞"}`}
+        {`Comming soon! ${colorScheme === "dark" ? "🌙" : "🌞"}`}
       </Text>
     </Pressable>
   );

@@ -1,6 +1,12 @@
 import { useAuth } from "@/context/AuthContext";
+import { saveExamResult } from "@/services/database";
 import { Ionicons } from "@expo/vector-icons";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import {
+  QuizControllerApi,
+  ScoreUserQuizControllerApi,
+  UserControllerApi,
+} from "generated/index";
 import React, { useCallback, useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -16,13 +22,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import Icon from "react-native-vector-icons/Ionicons"; // Assurez-vous d'avoir installé react-native-vector-icons
-
-import {
-  QuizControllerApi,
-  ScoreUserQuizControllerApi,
-  UserControllerApi,
-} from "generated/index";
+import Icon from "react-native-vector-icons/Ionicons";
 import axiosInstance from "../../environments/axiosInstance";
 import environment from "../../environments/environment";
 
@@ -132,6 +132,8 @@ const QuizDetails = ({ route }) => {
 
       createUserScoreQuiz(userDetails, quizDetails!, score);
 
+      saveExamResult(quizDetails.id, score, score >= quizDetails.questions.length / 2 ? "PASSED" : "FAILED", duration); // Save the result to the local database
+
       navigation.navigate("ScorePage", {
         score,
         totalQuestions: quizDetails.questions.length,
@@ -181,7 +183,7 @@ const QuizDetails = ({ route }) => {
     setModalVisible(true);
     return true;
   };
-
+  console.log(quizDetails)
   const currentQuestion = quizDetails.questions[currentQuestionIndex];
   const options = [
     currentQuestion.option1,
@@ -539,3 +541,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
+

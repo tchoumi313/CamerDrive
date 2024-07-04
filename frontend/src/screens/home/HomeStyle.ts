@@ -11,23 +11,25 @@ const Homestyles = StyleSheet.create({
   textContainer: {
     flexDirection: "row",
     alignItems: "center",
-    padding: 20,
+    padding: 25,
     borderRadius: 25,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 1,
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5,
+    elevation: 2,
   },
   welcomeText: {
+    color: "black",
     fontSize: 18,
     fontWeight: "bold",
-    marginBottom: 5,
+    marginBottom: 1,
   },
   username: {
+    color: "black",
     fontSize: 16,
   },
   logo: {

@@ -1,13 +1,20 @@
 import { NavigationContainer } from "@react-navigation/native";
-import React from "react";
+import { useEffect } from "react";
 import { LogBox, StyleSheet } from "react-native";
 import { AuthProvider } from "./src/context/AuthContext";
 
+import { createTables } from "@/services/database";
 import Index from "./src/screens/Index";
 
 export default function App() {
   LogBox.ignoreAllLogs();
   LogBox.ignoreAllLogs();
+  useEffect(() => {
+    const initialize = async () => {
+      await createTables();
+    };
+    initialize();
+  }, []);
   return (
     <NavigationContainer>
       <AuthProvider>

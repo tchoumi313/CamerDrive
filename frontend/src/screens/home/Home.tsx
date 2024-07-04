@@ -1,10 +1,10 @@
+import environment from "@/environments/environment";
 import React from "react";
 import { Image, ScrollView, Text, View } from "react-native";
 import Carousel from "../../components/Carousel";
 import HorizontalView from "../../components/HorizontalView";
 import { useAuth } from "../../context/AuthContext";
 import Homestyles from "./HomeStyle";
-import environment from "@/environments/environment";
 
 const Home = () => {
   const { authState } = useAuth();
@@ -35,7 +35,7 @@ const Home = () => {
             >
               Bienvenue sur CarmerDrive
             </Text>
-            <Text className="text-gray-900 dark:text-gray-200">
+            <Text style={Homestyles.welcomeText} >
               {authState?.user?.username}
             </Text>
           </View>

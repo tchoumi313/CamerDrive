@@ -32,6 +32,9 @@ public class SeedData implements CommandLineRunner {
     private QuizRepository quizRepo;
 
     @Autowired
+    private FichierRepository fichierRepo;
+
+    @Autowired
     private PasswordEncoder encoder;
 
     @Override
@@ -60,6 +63,15 @@ public class SeedData implements CommandLineRunner {
             role.setNom("ADMIN");
             user.setRole(roleRepo.findByNom(AppConstants.ADMIN_ROLE));
             userRepo.save(user);
+            User user1 = new User();
+            user1.setUsername("donald");
+            user1.setEmail("donald@admin.com");
+            user1.setPassword(encoder.encode("P@ssword1"));
+            user1.setDateNaiss(new SimpleDateFormat("yyyy-MM-dd").parse("2000-01-01"));
+            Role role1 = new Role();
+            role1.setNom("ADMIN");
+            user1.setRole(roleRepo.findByNom(AppConstants.STUDENT_ROLE));
+            userRepo.save(user1);
         }
 
          if (coursRepo.count() == 0) {
@@ -68,12 +80,16 @@ public class SeedData implements CommandLineRunner {
     }
         private void createCoursAndRelatedData() {
         // Cours 1: Connaissance de la Route
+            Fichier f1 = new Fichier();
+            f1.setUrl("/home/donsoft/Documents/Work/Capec/CamerDrive-main/fichiers/download1.jpeg");
+            fichierRepo.save(f1);
         Cours cours1 = new Cours();
+        cours1.setImage(f1);
         cours1.setTitre("Connaissance de la Route");
         cours1.setDescription("Comprendre les différentes parties de la route, les marquages et les signaux routiers.");
-        coursRepo.save(cours1);
+        //coursRepo.save(cours1);
 
-        addConceptAndQuestionsToCours(cours1, new String[]{
+       /* addConceptAndQuestionsToCours(cours1, new String[]{
                 "Les Différentes Parties de la Route", "La route est composée de plusieurs parties: chaussée, accotement, trottoir, etc.",
                 "Les Marquages au Sol", "Les marquages au sol sont essentiels pour guider les usagers et garantir la sécurité.",
                 "Les Panneaux de Signalisation", "Les panneaux de signalisation routière indiquent des obligations, des interdictions ou des informations.",
@@ -90,15 +106,19 @@ public class SeedData implements CommandLineRunner {
                 {"Quels véhicules ont la priorité dans une intersection sans signalisation ?", "Véhicules à droite", "Véhicules à gauche", "Véhicules devant", "Véhicules derrière", "Véhicules à droite"},
                 {"Que signifie un feu rouge ?", "Passage libre", "Arrêt obligatoire", "Cédez le passage", "Interdiction de tourner", "Arrêt obligatoire"},
                 {"Comment indiquer un changement de direction ?", "Avec les feux de détresse", "Avec les clignotants", "Avec les feux de route", "Avec le klaxon", "Avec les clignotants"}
-        });
+        });*/
 
         // Cours 2: Code de la Route
+            Fichier f2 = new Fichier();
+            f2.setUrl("/home/donsoft/Documents/Work/Capec/CamerDrive-main/fichiers/download2 (1).jpeg");
+            fichierRepo.save(f2);
         Cours cours2 = new Cours();
+        cours2.setImage(f2);
         cours2.setTitre("Code de la Route");
         cours2.setDescription("Apprendre les règles de conduite, les priorités et les sanctions.");
-        coursRepo.save(cours2);
+        //coursRepo.save(cours2);
 
-        addConceptAndQuestionsToCours(cours2, new String[]{
+        /*addConceptAndQuestionsToCours(cours2, new String[]{
                 "Les Règles de Priorité", "Les règles de priorité déterminent qui a la priorité dans différentes situations routières.",
                 "Les Limitations de Vitesse", "Les limitations de vitesse sont imposées pour garantir la sécurité sur les routes.",
                 "Les Infractions et Sanctions", "Les infractions au code de la route entraînent des sanctions comme les amendes et les retraits de points.",
@@ -115,10 +135,14 @@ public class SeedData implements CommandLineRunner {
                 {"Que faire en cas d'accident ?", "Fuir", "Aider les blessés et appeler les secours", "Ignorer", "Continuer son chemin", "Aider les blessés et appeler les secours"},
                 {"Quelle est la vitesse maximale autorisée sur autoroute ?", "110 km/h", "120 km/h", "130 km/h", "140 km/h", "130 km/h"},
                 {"Que signifie un panneau de limitation de vitesse ?", "Vitesse minimale", "Vitesse maximale", "Interdiction de s'arrêter", "Obligation de s'arrêter", "Vitesse maximale"}
-        });
+        });*/
 
             // Cours 3: Conduite Préventive
+            Fichier f3 = new Fichier();
+            f3.setUrl("/home/donsoft/Documents/Work/Capec/CamerDrive-main/fichiers/download (4).jpeg");
+            fichierRepo.save(f3);
             Cours cours3 = new Cours();
+            cours3.setImage(f3);
             cours3.setTitre("Conduite Préventive");
             cours3.setDescription("Apprendre les techniques de conduite préventive pour éviter les accidents.");
             coursRepo.save(cours3);
@@ -143,7 +167,11 @@ public class SeedData implements CommandLineRunner {
             });
 
             // Cours 4: Sécurité Routière
+            Fichier f4 = new Fichier();
+            f4.setUrl("/home/donsoft/Documents/Work/Capec/CamerDrive-main/fichiers/download (6).jpeg");
+            fichierRepo.save(f4);
         Cours cours4 = new Cours();
+        cours4.setImage(f4);
         cours4.setTitre("Sécurité Routière");
         cours4.setDescription("Comprendre les mesures de sécurité pour prévenir les accidents.");
         coursRepo.save(cours4);
@@ -168,7 +196,11 @@ public class SeedData implements CommandLineRunner {
         });
 
         // Cours 5: Connaissance du Véhicule
+            Fichier f5 = new Fichier();
+            f5.setUrl("/home/donsoft/Documents/Work/Capec/CamerDrive-main/fichiers/download (5).jpeg");
+            fichierRepo.save(f5);
         Cours cours5 = new Cours();
+        cours5.setImage(f5);
         cours5.setTitre("Connaissance du Véhicule");
         cours5.setDescription("Apprendre les différents composants d'un véhicule et leur entretien.");
         coursRepo.save(cours5);
@@ -191,6 +223,63 @@ public class SeedData implements CommandLineRunner {
                 {"Quel est le rôle des feux de croisement ?", "Éclairer loin", "Éclairer près sans éblouir", "Signaler un danger", "Décorer", "Éclairer près sans éblouir"},
                 {"Pourquoi est-il important de faire la vidange régulièrement ?", "Économie de carburant", "Protéger le moteur", "Esthétique", "Éviter le bruit", "Protéger le moteur"}
         });
+            Fichier f7 = new Fichier();
+            f7.setUrl("/home/donsoft/Documents/Work/Capec/CamerDrive-main/fichiers/download.jpeg");
+            fichierRepo.save(f7);
+
+            Cours cours7 = new Cours();
+            cours7.setImage(f7);
+            cours7.setTitre("Connaissance de la Route");
+            cours7.setDescription("Comprendre les différentes parties de la route, les marquages et les signaux routiers.");
+            coursRepo.save(cours7);
+
+            addConceptAndQuestionsToCours(cours7, new String[]{
+                    "Les Différentes Parties de la Route", "La route est composée de plusieurs parties: chaussée, accotement, trottoir, etc.",
+                    "Les Marquages au Sol", "Les marquages au sol sont essentiels pour guider les usagers et garantir la sécurité.",
+                    "Les Panneaux de Signalisation", "Les panneaux de signalisation routière indiquent des obligations, des interdictions ou des informations.",
+                    "Les Feux de Circulation", "Les feux de circulation régulent le trafic aux intersections et sur les passages piétons.",
+                    "Les Intersections et Priorités", "Les règles de priorité à respecter lors des intersections pour éviter les accidents."
+            }, new String[][]{
+                    {"Quelle partie de la route est réservée aux piétons ?", "La chaussée", "Le trottoir", "L'accotement", "La bande d'arrêt d'urgence", "Le trottoir"},
+                    {"Que signifie une ligne blanche continue sur la chaussée ?", "Interdiction de franchir ou de chevaucher", "Autorisation de dépasser", "Zone de stationnement", "Route à sens unique", "Interdiction de franchir ou de chevaucher"},
+                    {"Que signifie un panneau de danger triangulaire avec un bord rouge ?", "Interdiction", "Obligation", "Danger", "Information", "Danger"},
+                    {"Quels feux doivent être utilisés dans un tunnel ?", "Feux de route", "Feux de croisement", "Feux de brouillard", "Feux de position", "Feux de croisement"},
+                    {"Quelle est la largeur normale d'une chaussée ?", "3 mètres", "5 mètres", "7 mètres", "9 mètres", "7 mètres"},
+                    {"Quel est le rôle des marquages au sol ?", "Décoration", "Guidage et sécurité", "Délimitation des propriétés", "Ralentissement des véhicules", "Guidage et sécurité"},
+                    {"Que signifie un panneau rond à fond bleu ?", "Interdiction", "Obligation", "Danger", "Information", "Obligation"},
+                    {"Quels véhicules ont la priorité dans une intersection sans signalisation ?", "Véhicules à droite", "Véhicules à gauche", "Véhicules devant", "Véhicules derrière", "Véhicules à droite"},
+                    {"Que signifie un feu rouge ?", "Passage libre", "Arrêt obligatoire", "Cédez le passage", "Interdiction de tourner", "Arrêt obligatoire"},
+                    {"Comment indiquer un changement de direction ?", "Avec les feux de détresse", "Avec les clignotants", "Avec les feux de route", "Avec le klaxon", "Avec les clignotants"}
+            });
+
+            // Cours 2: Code de la Route
+            Fichier f8 = new Fichier();
+            f8.setUrl("/home/donsoft/Documents/Work/Capec/CamerDrive-main/fichiers/download (1).jpeg");
+            fichierRepo.save(f8);
+            Cours cours6 = new Cours();
+            cours6.setImage(f8);
+            cours6.setTitre("Code de la Route");
+            cours6.setDescription("Apprendre les règles de conduite, les priorités et les sanctions.");
+            coursRepo.save(cours6);
+
+            addConceptAndQuestionsToCours(cours6, new String[]{
+                    "Les Règles de Priorité", "Les règles de priorité déterminent qui a la priorité dans différentes situations routières.",
+                    "Les Limitations de Vitesse", "Les limitations de vitesse sont imposées pour garantir la sécurité sur les routes.",
+                    "Les Infractions et Sanctions", "Les infractions au code de la route entraînent des sanctions comme les amendes et les retraits de points.",
+                    "Les Zones de Danger", "Les zones de danger sont des endroits spécifiques où la vigilance doit être accrue.",
+                    "Les Types de Permis", "Différents types de permis existent en fonction des véhicules que l'on souhaite conduire."
+            }, new String[][]{
+                    {"Que signifie un panneau stop ?", "Cédez le passage", "Arrêt obligatoire", "Interdiction de tourner à gauche", "Fin de limitation de vitesse", "Arrêt obligatoire"},
+                    {"Quelle est la vitesse maximale autorisée en agglomération ?", "30 km/h", "50 km/h", "70 km/h", "90 km/h", "50 km/h"},
+                    {"Quelles sont les conséquences d'un excès de vitesse ?", "Avertissement verbal", "Amende et retrait de points", "Aucune", "Récompense", "Amende et retrait de points"},
+                    {"Que signifie un panneau indiquant une école ?", "Interdiction de dépasser", "Ralentir et être vigilant", "Arrêt obligatoire", "Passage piétons", "Ralentir et être vigilant"},
+                    {"Quelle est la sanction pour conduite en état d'ivresse ?", "Amende", "Prison", "Retrait de permis", "Toutes les réponses", "Toutes les réponses"},
+                    {"Que signifie un panneau rond à bord rouge avec une barre transversale ?", "Interdiction", "Obligation", "Danger", "Information", "Interdiction"},
+                    {"Quel permis est nécessaire pour conduire un camion ?", "Permis A", "Permis B", "Permis C", "Permis D", "Permis C"},
+                    {"Que faire en cas d'accident ?", "Fuir", "Aider les blessés et appeler les secours", "Ignorer", "Continuer son chemin", "Aider les blessés et appeler les secours"},
+                    {"Quelle est la vitesse maximale autorisée sur autoroute ?", "110 km/h", "120 km/h", "130 km/h", "140 km/h", "130 km/h"},
+                    {"Que signifie un panneau de limitation de vitesse ?", "Vitesse minimale", "Vitesse maximale", "Interdiction de s'arrêter", "Obligation de s'arrêter", "Vitesse maximale"}
+            });
     }
 
     private void addConceptAndQuestionsToCours(Cours cours, String[] concepts, String[][] questions) {

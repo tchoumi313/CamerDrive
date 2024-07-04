@@ -6,6 +6,7 @@ import {
   Dimensions,
   FlatList,
   Image,
+  ImageBackground,
   Text,
   TouchableOpacity,
   View,
@@ -32,7 +33,7 @@ const Courses: React.FC = () => {
 
   const AllCourses = async () => {
     try {
-      console.log("my courses");
+     // console.log("my courses");
       const courseApi = new CoursControllerApi(
         
         environment,
@@ -40,21 +41,21 @@ const Courses: React.FC = () => {
         axiosInstance
       );
       const response = await courseApi.indexCours();
-      console.log(response);
+      //console.log(response);
       const courses = response.data.map((course: any) => ({
         id: course.id,
         courseName: course.titre,
         imageId: course.image? course.image.id :"",
       }));
-      console.log("my courses");
-      console.log(courses);
+      //console.log("my courses");
+      //console.log(courses);
 
       const coursesWithImages = courses.map((course) => ({
         ...course,
         imageUrl: `${environment.basePath}/files/${course.imageId}`,
       }));
 
-      console.log("Cours avec images:", coursesWithImages);
+      //console.log("Cours avec images:", coursesWithImages);
       setCourses(coursesWithImages);
     } catch (error: any) {
       console.log(error);
@@ -84,9 +85,16 @@ const Courses: React.FC = () => {
   }
 
   return (
+    <ImageBackground
+    source={{ uri: '../../../assets/onboading/image5.jpg' }}
+    style={{
+      width: '100%',
+      height: '100%',
+    }}
+  >
     <View
       style={{
-        backgroundColor: "#f0f8ff",
+        backgroundColor: "rgba(240, 248, 255, 0.1)", // Adding a slight opacity to the background color
         height: Dimensions.get("window").height,
         paddingBottom: 50,
       }}
@@ -95,8 +103,9 @@ const Courses: React.FC = () => {
         data={courses}
         keyExtractor={(item) => item.id.toString()}
         style={{
+          backgroundColor: "rgba(240, 248, 255, 0.1)", 
           borderTopRightRadius: 10,
-          marginBottom: 110,
+          marginBottom: 50,
         }}
         renderItem={({ item }) => (
           <View style={CoursesStyle.container}>
@@ -116,6 +125,7 @@ const Courses: React.FC = () => {
         )}
       />
     </View>
+    </ImageBackground>
   );
 };
 
